@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get thumbnail</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        hr{
+            border: none;
+            height: 5px;
+            /* Set the hr color */
+            color: #e65c37; /* old IE */
+            background-color: #e65c37; /* Modern Browsers */
+        }
+    </style>
+    <script>
+        function screenshot() {
+            var node = document.getElementById('render-page');
+          domtoimage.toJpeg(node)
+            .then(function(img) {
+                var link = document.createElement('a');
+                link.download = 'thumbnail.jpeg';
+                link.href = img;
+                link.click();
+            })
+        } 
+      </script>
+      <script src="../public/dom-to-image.js" async></script>
+</head>
+<body>
+    <!-- <p><%= title %></p> -->
+    <div id="render-page" style="background-color: #eaeaea; width: 680px;">
+        <div id="image-thumbnail">
+            <img src="<%= imageLink %>" style="border-bottom: 5px #e65c37 solid; width: 680px;">
+        </div>
+        <div id="content" style="padding: 0 20px 0 20px">
+            <div id="title">
+                <h1 style="margin-bottom: 0px; margin-top: 14px; font-size: 30px;"><%= title %></h1>
+                <hr width="270px" align="left">
+            </div>
+            <div id="description">
+                <p style="font-size: 25px; margin-top: 14px; padding-bottom: 20px;"><%= description %></p>
+            </div>
+        </div>
+    </div>
+    <button onclick="screenshot()">Download</button>
+</body>
+</html>
