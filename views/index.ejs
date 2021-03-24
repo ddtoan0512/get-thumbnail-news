@@ -12,7 +12,7 @@
 <body>
     <div style="margin-bottom: 20px;">
         <form action="/get-thumbnail" method="POST" >
-            Link: <input type="text" name="link" id="link">
+            Link: <input type="text" name="link" id="link" style="width: 400px;">
             <button type="button" id="submit-link">Load</button>
         </form>
     </div>
@@ -31,7 +31,7 @@
                         link: $("#link").val()
                     },
                     success: function(res){
-                        $('body').append(res);
+                        $('#image-render').html(res);
                     }
                 })
             });
