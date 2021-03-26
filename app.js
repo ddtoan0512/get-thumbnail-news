@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('port', port);
 app.set('view engine', 'ejs');
 
-app.get('/get-thumbnail', function(req, res) {
+app.get('/', function(req, res) {
     res.render('index');
 });
 
