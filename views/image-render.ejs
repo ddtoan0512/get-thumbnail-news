@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get thumbnail</title>
     <style>
+        @font-face {
+            font-family: Avo;
+            src: url(public/font/UTM-Avo.ttf);
+        }
+        @font-face {
+            font-family: Avo;
+            src: url(public/font/UTM-AvoBold.ttf);
+            font-weight: bold;
+        }
+
         *{
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Avo;
         }
 
         hr{
             border: none;
-            height: 5px;
+            height: 9px;
             /* Set the hr color */
-            color: #ff5400; /* old IE */
-            background-color: #ff5400; /* Modern Browsers */
+            color: #ff3c00; /* old IE */
+            background-color: #ff3c00; /* Modern Browsers */
         }
     </style>
     <script>
@@ -33,24 +43,25 @@
 </head>
 <body>
     <!-- <p><%= title %></p> -->
-    <div id="render-page" style="background-color: #f5f0f0; width: 680px;">
+    <div id="render-page" style="background-image: url('../public/image/background.png'); background-position: center; width: 1200px; height: 1200px; position: relative;">
         <div id="image-thumbnail" style="position: relative;">
-            <img src="<%= imageLink %>" style="width: 680px; height: 450px; object-fit: cover;">
-            <div id="tag-thumbnail" style="position: absolute; top: 260px;">
-                <img src="../public/image/tag.png" style="width: 680px;">
+            <img src="<%= imageLink %>" style="width: 1200px; height: 700px; object-fit: cover;">
+            <div id="tag-thumbnail" style="position: absolute; top: 648px;">
+                <img src="../public/image/line1.png" style="width: 1200px; height: 55px;">
             </div>
         </div>
-        <div id="content" style="padding: 0 20px 0 20px">
+        <div id="content" style="padding: 0 20px 0 20px; margin-bottom: 10px; margin-top: 14px;">
             <div id="title">
-                <h1 style="margin-bottom: 0px; margin-top: 14px; font-size: 35px; text-transform:uppercase"><%= title %></h1>
-                <hr width="270px" align="left">
+                <h1 style=" font-size: 35px; text-transform:uppercase"><%= title %></h1>
+                <img src="../public/image/line2.png" style="width: 490px; height: 9px;">
+                <!-- <hr width="500px" align="left"> -->
             </div>
-            <div id="description">
-                <p style="font-size: 21px; margin-bottom: 20px; padding-bottom: 0px"><%= description %></p>
+            <div id="description" style="margin-bottom: 20px; padding-bottom: 0px">
+                <p style="font-size: 32px; "><%= description %></p>
             </div>
-            <div id="footer" style="padding-top: 10px;">
-                <img src="../public/image/fake_logo.png" style="width: 50px; height: 50px; border-radius: 7px; margin-bottom: 10px;">
-            </div>
+        </div>
+        <div id="footer" style="position: absolute; bottom: 20px; padding: 0 20px 0 20px;">
+            <img src="../public/image/lg_dnews.png" style="width: 80px; height: 80px; border-radius: 7px; margin-bottom: 10px;">
         </div>
     </div>
     <button onclick="screenshot()" style="margin-top: 10px;">Download</button>

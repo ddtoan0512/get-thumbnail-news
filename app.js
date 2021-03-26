@@ -25,13 +25,13 @@ app.post('/get-thumbnail', (req, res) => {
     if(!error && response.statusCode == 200){
         const $ = cheerio.load(html);
 
-        var title = $('.title-detail').text();
+        var title = $('h1.detail-title').text();
         console.log(title);
 
-        var description = $('.description').text();
-        console.log(description);
-
-        var imageLink = $('.fig-picture img').attr('data-src');
+        var description = $('h2.detail-lead').text();
+        // console.log(description);
+        
+        var imageLink = $('meta[property="og:image"]').attr('content');
         console.log(imageLink);
         res.render('image-render' ,{ title, description, imageLink })
     }
