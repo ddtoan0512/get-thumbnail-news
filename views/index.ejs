@@ -12,7 +12,7 @@
 <body>
     <div style="margin-bottom: 20px;">
         <form action="/get-thumbnail" method="POST" >
-            Link: <input type="text" name="link" id="link" style="width: 400px;">
+            Link: <textarea type="text" name="link" id="link" cols="100" rows="20"></textarea>
             <button type="button" id="submit-link">Load</button>
         </form>
     </div>
@@ -24,16 +24,24 @@
     <script>
         $(document).ready(function(){
             $("#submit-link").click(function(){
-                $.ajax({
-                    url: "/get-thumbnail",
-                    type: "post",
-                    data: {
-                        link: $("#link").val()
-                    },
-                    success: function(res){
-                        $('#image-render').html(res);
+                var links = $("#link").val();
+                var linkArray = links.split("\n");
+                if(linkArray.length > 0){
+                    for(i = 0; i < linkArray.length; i++){
+                        var render_page = "render-page" + i;
+                        let x = "render-page" + i;
+                        $.ajax({
+                            url: "/get-thumbnail",
+                            type: "post",
+                            data: {
+                                link: linkArray[i]
+                            },
+                            success: function(res){
+                                $('#image-render').append(res);
+                            }
+                        })
                     }
-                })
+                }
             });
         });
     </script>

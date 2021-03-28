@@ -28,8 +28,8 @@
         }
     </style>
     <script>
-        function screenshot() {
-            var node = document.getElementById('render-page');
+        function screenshot(hihi) {
+            var node = document.getElementById("render-page-" + hihi);
           domtoimage.toJpeg(node)
             .then(function(img) {
                 var link = document.createElement('a');
@@ -43,11 +43,11 @@
 </head>
 <body>
     <!-- <p><%= title %></p> -->
-    <div id="render-page" style="background-image: url('../public/image/background.png'); background-position: center; width: 1200px; height: 1200px; position: relative;">
+    <div id="render-page-<%= random %>" style="background-image: url('../public/image/background.png'); background-position: center; width: 1200px; height: 1200px; position: relative; margin-top: 20px;">
         <div id="image-thumbnail" style="position: relative;">
             <img src="<%= imageLink %>" style="width: 1200px; height: 700px; object-fit: cover;">
-            <div id="tag-thumbnail" style="position: absolute; top: 648px;">
-                <img src="../public/image/line1.png" style="width: 1200px; height: 55px;">
+            <div id="tag-thumbnail" style="position: absolute; top: 625px;">
+                <img src="../public/image/line1.png" style="width: 1200px;">
             </div>
         </div>
         <div id="content" style="padding: 0 20px 0 20px;">
@@ -64,6 +64,6 @@
             <img src="../public/image/lg_dnews.png" style="width: 80px; height: 80px; border-radius: 7px; margin-bottom: 10px;">
         </div>
     </div>
-    <button onclick="screenshot()" style="margin-top: 10px;">Download</button>
+    <button onclick=screenshot(<%= random %>)>Download</button>
 </body>
 </html>

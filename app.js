@@ -25,15 +25,17 @@ app.post('/get-thumbnail', (req, res) => {
     if(!error && response.statusCode == 200){
         const $ = cheerio.load(html);
 
-        var title = $('h1.detail-title').text();
+        var title = $('meta[property="og:title"]').attr('content');
         console.log(title);
 
-        var description = $('h2.detail-lead').text();
-        // console.log(description);
+        var description = $('meta[property="og:description"]').attr('content');
+        console.log(description);
         
         var imageLink = $('meta[property="og:image"]').attr('content');
-        console.log(imageLink);
-        res.render('image-render' ,{ title, description, imageLink })
+        
+        var random = Math.floor(Math.random() * Math.floor(999999));
+
+        res.render('image-render' ,{ title, description, imageLink, random })
     }
     });
 
