@@ -8,6 +8,7 @@
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
+  <script src="../public/dom-to-image.js" async></script>
 </head>
 <body>
     <div style="margin-bottom: 20px;">
@@ -37,7 +38,18 @@
                                 link: linkArray[i]
                             },
                             success: function(res){
-                                $('#image-render').append(res);
+                                $('#image-render').html(res);
+                                var node = document.getElementById('image-render')
+
+                                domtoimage.toPng(node)
+                                    .then(function (dataUrl) {
+                                        var img = new Image();
+                                        img.src = dataUrl;
+                                        $('#image-render').html(img);
+                                    })
+                                    .catch(function (error) {
+                                        console.error('oops, something went wrong!', error);
+                                    });
                             }
                         })
                     }
