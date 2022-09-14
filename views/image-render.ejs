@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,18 +30,29 @@
     <script>
         function screenshot(hihi) {
             var node = document.getElementById("render-page-" + hihi);
-          domtoimage.toJpeg(node)
-            .then(function(img) {
-                var link = document.createElement('a');
-                link.download = 'thumbnail.jpeg';
-                link.href = img;
-                link.click();
+        //   domtoimage.toJpeg(node)
+        //     .then(function(img) {
+        //         var link = document.createElement('a');
+        //         link.download = 'thumbnail.jpeg';
+        //         link.href = img;
+        //         link.click();
+        //     })
+
+        domtoimage.toPng(node)
+            .then(function (dataUrl) {
+                var img = new Image();
+                img.src = dataUrl;
+                document.body.appendChild(img);
             })
+            .catch(function (error) {
+                console.error('oops, something went wrong!', error);
+            });
+
         } 
       </script>
       <script src="../public/dom-to-image.js" async></script>
 </head>
-<body> -->
+<body>
     <!-- <p><%= title %></p> -->
     <div id="render-page-<%= random %>" style="background-image: url('../public/image/background.png'); background-position: center; width: 1200px; height: 1200px; position: relative; margin-top: 20px;">
         <div id="image-thumbnail" style="position: relative;">
@@ -64,6 +75,6 @@
             <img src="../public/image/lg_dnews.png" style="width: 80px; height: 80px; border-radius: 7px; margin-bottom: 10px;">
         </div>
     </div>
-    <!-- <button onclick=screenshot(<%= random %>)>Download</button> -->
-<!-- </body>
-</html> -->
+    <button onclick=screenshot(<%= random %>)>Download</button>
+</body>
+</html>
