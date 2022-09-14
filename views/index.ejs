@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get thumbnail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get thumbnail</title>
+    <style>
+        @font-face {
+            font-family: Avo;
+            src: url(public/font/UTM-Avo.ttf);
+        }
+        @font-face {
+            font-family: Avo;
+            src: url(public/font/UTM-AvoBold.ttf);
+            font-weight: bold;
+        }
+
+        *{
+            font-family: Avo;
+        }
+
+        hr{
+            border: none;
+            height: 9px;
+            /* Set the hr color */
+            color: #ff3c00; /* old IE */
+            background-color: #ff3c00; /* Modern Browsers */
+        }
+    </style>
+    <script>
+        function screenshot(hihi) {
+            var node = document.getElementById("render-page-" + hihi);
+          domtoimage.toJpeg(node)
+            .then(function(img) {
+                var link = document.createElement('a');
+                link.download = 'thumbnail.jpeg';
+                link.href = img;
+                link.click();
+            })
+        } 
+      </script>
     <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -40,12 +78,12 @@
                             success: function(res){
                                 $('#image-render').html(res);
                                 var node = document.getElementById('image-render')
-
                                 domtoimage.toPng(node)
                                     .then(function (dataUrl) {
                                         var img = new Image();
                                         img.src = dataUrl;
                                         $('#image-render').html(img);
+                                        // document.body.append(img)
                                     })
                                     .catch(function (error) {
                                         console.error('oops, something went wrong!', error);
