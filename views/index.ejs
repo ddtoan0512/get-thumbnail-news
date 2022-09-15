@@ -43,12 +43,15 @@
 
         domtoimage.toPng(node)
             .then(function (dataUrl) {
-                console.log(dataUrl);
-                var img = new Image();
-                img.src = dataUrl;
+                // var img = new Image();
+                // img.src = dataUrl;
                 // var w = window.open("");
                 // w.document.write(img.outerHTML);
-                document.body.appendChild(img);
+
+                var rawImg = '<img src="' + dataUrl + '">;'
+
+                var imageDiv = document.getElementById('image-raw').innerHTML = rawImg;
+
             })
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
@@ -71,6 +74,10 @@
     </div>
 
     <div id="image-render">
+
+    </div>
+
+    <div id="image-raw">
 
     </div>
 
