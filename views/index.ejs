@@ -30,23 +30,10 @@
             background-color: #ff3c00; /* Modern Browsers */
         }
     </style>
-    <script>
-        function screenshot(hihi) {
-            var node = document.getElementById("render-page-" + hihi);
-          domtoimage.toJpeg(node)
-            .then(function(img) {
-                var link = document.createElement('a');
-                link.download = 'thumbnail.jpeg';
-                link.href = img;
-                link.click();
-            })
-        } 
-      </script>
     <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
-  <script src="../public/dom-to-image.js" async></script>
 </head>
 <body>
     <div style="margin-bottom: 20px;">
