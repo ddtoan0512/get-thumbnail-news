@@ -1,62 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get thumbnail</title>
-    <style>
-        @font-face {
-            font-family: Avo;
-            src: url(public/font/UTM-Avo.ttf);
-        }
-        @font-face {
-            font-family: Avo;
-            src: url(public/font/UTM-AvoBold.ttf);
-            font-weight: bold;
-        }
-
-        *{
-            font-family: Avo;
-        }
-
-        hr{
-            border: none;
-            height: 9px;
-            /* Set the hr color */
-            color: #ff3c00; /* old IE */
-            background-color: #ff3c00; /* Modern Browsers */
-        }
-    </style>
-    <script>
-        function screenshot(hihi) {
-            var node = document.getElementById("render-page-" + hihi);
-        //   domtoimage.toJpeg(node)
-        //     .then(function(img) {
-        //         var link = document.createElement('a');
-        //         link.download = 'thumbnail.jpeg';
-        //         link.href = img;
-        //         link.click();
-        //     })
-
-        domtoimage.toPng(node)
-            .then(function (dataUrl) {
-                console.log(dataUrl);
-                var img = new Image();
-                img.src = dataUrl;
-                var w = window.open("");
-                w.document.write(img.outerHTML);
-                // document.body.appendChild(img);
-            })
-            .catch(function (error) {
-                console.error('oops, something went wrong!', error);
-            });
-
-        } 
-      </script>
-      <script src="../public/dom-to-image.js" async></script>
-</head>
-<body>
-    <!-- <p><%= title %></p> -->
+<div>
+    <button style="width: 100x; height: 40px;" onclick=screenshot(<%= random %>) >Download</button>
     <div id="render-page-<%= random %>" style="background-image: url('../public/image/background.png'); background-position: center; width: 1200px; height: 1200px; position: relative; margin-top: 20px;">
         <div id="image-thumbnail" style="position: relative;">
             <img src="<%= imageLink %>" style="width: 1200px; height: 700px; object-fit: cover;">
@@ -78,6 +21,4 @@
             <img src="../public/image/lg_dnews.png" style="width: 80px; height: 80px; border-radius: 7px; margin-bottom: 10px;">
         </div>
     </div>
-    <button style="width: 100x; height: 40px;" onclick=screenshot(<%= random %>) >Download</button>
-</body>
-</html>
+</div>
