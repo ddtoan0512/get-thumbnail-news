@@ -12,7 +12,11 @@ const port = process.env.PORT || 3000;
 app.use("/public", express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: false,
+}))
 app.set('port', port);
 app.set('view engine', 'ejs');
 
@@ -39,6 +43,15 @@ app.post('/get-thumbnail', (req, res) => {
     }
     });
 
+})
+
+app.post('/update-get-thumbnail', (req, res) => {
+    var title = req.body.title;
+    var imageLink = req.body.image;
+    var random = Math.floor(Math.random() * Math.floor(999999));
+    var description = "";
+    
+    res.render('image-render' ,{ title, description, imageLink, random })
 })
 
 app.listen(port, () => {

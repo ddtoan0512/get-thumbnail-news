@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,64 +13,57 @@
             font-family: Avo;
             src: url(public/font/UTM-Avo.ttf);
         }
+
         @font-face {
             font-family: Avo;
             src: url(public/font/UTM-AvoBold.ttf);
             font-weight: bold;
         }
 
-        *{
+        * {
             font-family: Avo;
         }
 
-        hr{
+        hr {
             border: none;
             height: 9px;
             /* Set the hr color */
-            color: #ff3c00; /* old IE */
-            background-color: #ff3c00; /* Modern Browsers */
+            color: #ff3c00;
+            /* old IE */
+            background-color: #ff3c00;
+            /* Modern Browsers */
         }
     </style>
     <script>
         function screenshot(hihi) {
             var node = document.getElementById("render-page-" + hihi);
-        //   domtoimage.toJpeg(node)
-        //     .then(function(img) {
-        //         var link = document.createElement('a');
-        //         link.download = 'thumbnail.jpeg';
-        //         link.href = img;
-        //         link.click();
-        //     })
-
-        domtoimage.toPng(node)
-            .then(function (dataUrl) {
-                // var img = new Image();
-                // img.src = dataUrl;
-                // var w = window.open("");
-                // w.document.write(img.outerHTML);
-
-                var rawImg = '<img src="' + dataUrl + '">;'
-
-                var imageDiv = document.getElementById('image-raw').innerHTML = rawImg;
-
-            })
-            .catch(function (error) {
-                console.error('oops, something went wrong!', error);
-            });
+            domtoimage.toPng(node)
+                .then(function (dataUrl) {
+                    var rawImg = '<img src="' + dataUrl + '">;'
+                    var imageDiv = document.getElementById('image-raw').innerHTML = rawImg;
+                })
+                .catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+                });
 
         } 
-      </script>
-      <script src="../public/dom-to-image.js" async></script>
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+    </script>
+    <script src="../public/dom-to-image.js" async></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div style="margin-bottom: 20px;">
-        <form action="/get-thumbnail" method="POST" >
+        <form action="/get-thumbnail" method="POST">
             Link: <textarea type="text" name="link" id="link" cols="100" rows="3"></textarea>
-            <button type="button" id="submit-link">Load</button>
+            <button type="button" id="submit-link">Load thumbnail</button>
+        </form>
+        <form action="/get-thumbnail-upload-img" method="POST">
+            Tite : <textarea type="text" name="title" id="title" cols="100" rows="3"></textarea> </br>
+            Image: <input type="file" id="img-thumbnail" name="img-thumbnail" onchange="convertFileToBase64(this)">
+            <input type="hidden" id="b64">
+            <button type="button" id="submit-upload">Upload & Load thumbnail</button>
         </form>
     </div>
 
@@ -82,12 +76,12 @@
     </div>
 
     <script>
-        $(document).ready(function(){
-            $("#submit-link").click(function(){
+        $(document).ready(function () {
+            $("#submit-link").click(function () {
                 var links = $("#link").val();
                 var linkArray = links.split("\n");
-                if(linkArray.length > 0){
-                    for(i = 0; i < linkArray.length; i++){
+                if (linkArray.length > 0) {
+                    for (i = 0; i < linkArray.length; i++) {
                         var render_page = "render-page" + i;
                         let x = "render-page" + i;
                         $.ajax({
@@ -96,14 +90,46 @@
                             data: {
                                 link: linkArray[i]
                             },
-                            success: function(res){
+                            success: function (res) {
                                 $('#image-render').html(res);
                             }
                         })
                     }
                 }
             });
+
+            $("#submit-upload").click(function () {
+
+                var image = $('#b64').val();
+                var title = $('#title').val();
+
+                console.log(image);
+
+                $.ajax({
+                    url: "/update-get-thumbnail",
+                    type: "post",
+                    data: {
+                        image: image,
+                        title: title
+                    },
+                    success: function (res) {
+                        $('#image-render').html(res);
+                    }
+                })
+
+            });
         });
+
+        function convertFileToBase64(element) {
+            var img = element.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                $("#b64").val(reader.result);
+            }
+            reader.readAsDataURL(img);
+        }
+
     </script>
 </body>
+
 </html>
